@@ -6,7 +6,11 @@
   "/api": "pages/api.js",
   "/api/prompt-rules/[id]": "pages/api/prompt-rules/[id].js",
   "/api/prompt-rules": "pages/api/prompt-rules.js",
+  "/contexts": "pages/contexts.html",
   "/": "pages/index.html",
+  "/api/reviewRule": "pages/api/reviewRule.js",
+  "/rules/[id]": "pages/rules/[id].html",
+  "/rules": "pages/rules.html",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }
