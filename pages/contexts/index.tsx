@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
+import ContextEditor from '../../components/ContextEditor'
 
 interface ContextProfile {
   id: string
@@ -38,7 +39,7 @@ export default function ContextsPage() {
     }
   }
 
-  const handleSave = async () => {
+  const handleSave = async (contextData: Omit<ContextProfile, 'id' | 'maintainedBy'>) => {
     try {
       const method = isCreating ? 'POST' : 'PUT'
       const url = isCreating 
@@ -46,8 +47,8 @@ export default function ContextsPage() {
         : `/api/context-profiles/${editingId}`
       
       const body = isCreating 
-        ? { ...formData, maintainedBy: 'current-user' } // TODO: Replace with actual user
-        : formData
+        ? { ...contextData, maintainedBy: 'current-user' } // TODO: Replace with actual user
+        : contextData
 
       const response = await fetch(url, {
         method,
@@ -145,53 +146,12 @@ export default function ContextsPage() {
             </div>
 
             {(isCreating || editingId) && (
-              <div className="mb-6 p-6 border border-gray-200 rounded-lg bg-gray-50">
-                <h3 className="text-lg font-semibold mb-4">
-                  {isCreating ? '새 컨텍스트 작성' : '컨텍스트 편집'}
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      역할
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.role}
-                      onChange={(e) => setFormData({...formData, role: e.target.value})}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="예: Frontend Engineer, Backend Developer, AI Specialist"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      기본 프롬프트
-                    </label>
-                    <textarea
-                      value={formData.basePrompt}
-                      onChange={(e) => setFormData({...formData, basePrompt: e.target.value})}
-                      rows={6}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="이 역할에 대한 기본 컨텍스트 프롬프트를 입력하세요..."
-                    />
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={handleSave}
-                      className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      저장
-                    </button>
-                    <button
-                      onClick={handleCancel}
-                      className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      취소
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <ContextEditor
+                context={editingId ? contexts.find(c => c.id === editingId) : undefined}
+                onSave={handleSave}
+                onCancel={handleCancel}
+                isEditing={!!editingId}
+              />
             )}
             
             {contexts.length === 0 ? (

@@ -1,4 +1,5 @@
 {
+  "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/api/context-profiles/[id]": "pages/api/context-profiles/[id].js",
   "/api/context-profiles": "pages/api/context-profiles.js",
@@ -7,9 +8,9 @@
   "/api/prompt-rules": "pages/api/prompt-rules.js",
   "/contexts": "pages/contexts.html",
   "/": "pages/index.html",
+  "/api/reviewRule": "pages/api/reviewRule.js",
   "/rules/[id]": "pages/rules/[id].html",
   "/rules": "pages/rules.html",
-  "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }

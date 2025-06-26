@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Header from '../../components/Header'
+import AIReviewResult from '../../components/AIReviewResult'
 
 interface PromptRule {
   id: string
@@ -24,6 +25,9 @@ export default function RuleDetailPage() {
     content: '',
     category: ''
   })
+  const [aiReview, setAiReview] = useState(null)
+  const [isReviewing, setIsReviewing] = useState(false)
+  const [testPrompt, setTestPrompt] = useState('')
 
   useEffect(() => {
     if (id && id !== 'new') {
@@ -84,6 +88,37 @@ export default function RuleDetailPage() {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save')
+    }
+  }
+
+  const handleTestReview = async () => {
+    if (!testPrompt.trim() || !rule) return
+
+    setIsReviewing(true)
+    setAiReview(null)
+
+    try {
+      const response = await fetch('/api/reviewRule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: testPrompt,
+          ruleIds: [rule.id]
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to review prompt')
+      }
+
+      const result = await response.json()
+      setAiReview(result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'AI review failed')
+    } finally {
+      setIsReviewing(false)
     }
   }
 
@@ -243,6 +278,46 @@ export default function RuleDetailPage() {
                 <div className="text-sm text-gray-500">
                   <p>작성자: {rule.createdBy}</p>
                   <p>작성일: {new Date(rule.createdAt).toLocaleDateString('ko-KR')}</p>
+                </div>
+
+                {/* AI 리뷰 테스트 섹션 */}
+                <div className="mt-8 pt-8 border-t border-gray-200">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    🤖 AI 리뷰 테스트
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    이 룰을 기준으로 프롬프트를 테스트해보세요.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        테스트할 프롬프트
+                      </label>
+                      <textarea
+                        value={testPrompt}
+                        onChange={(e) => setTestPrompt(e.target.value)}
+                        rows={4}
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="AI가 검토할 프롬프트를 입력하세요..."
+                      />
+                    </div>
+                    
+                    <button
+                      onClick={handleTestReview}
+                      disabled={!testPrompt.trim() || isReviewing}
+                      className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 text-white font-bold py-2 px-4 rounded"
+                    >
+                      {isReviewing ? 'AI 리뷰 중...' : 'AI 리뷰 시작'}
+                    </button>
+                    
+                    {(aiReview || isReviewing) && (
+                      <AIReviewResult 
+                        result={aiReview} 
+                        isLoading={isReviewing} 
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             ) : null}
