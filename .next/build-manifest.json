@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/vrmaEzicmxYuWOioUeuEe/_buildManifest.js",
-    "static/vrmaEzicmxYuWOioUeuEe/_ssgManifest.js"
+    "static/oPfgrHaV0cv556B4CBP66/_buildManifest.js",
+    "static/oPfgrHaV0cv556B4CBP66/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -36,6 +36,12 @@
       "static/chunks/main-bb5681db3f71c7a6.js",
       "static/chunks/230-5443ad96548554c5.js",
       "static/chunks/pages/contexts-036aece523ebae26.js"
+    ],
+    "/mcp-memory": [
+      "static/chunks/webpack-8cac0b4b405cede1.js",
+      "static/chunks/framework-2f335d22a7318891.js",
+      "static/chunks/main-bb5681db3f71c7a6.js",
+      "static/chunks/pages/mcp-memory-7753a12d15999ec8.js"
     ],
     "/rules": [
       "static/chunks/webpack-8cac0b4b405cede1.js",

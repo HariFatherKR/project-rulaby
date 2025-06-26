@@ -33,6 +33,7 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 - 📝 **Rule Management**: Create, edit, and organize prompting guidelines
 - 🎯 **Context Editor**: Role-based prompt templates and contexts
 - 🔍 **AI Review Results**: Detailed feedback and suggestions for prompt improvement
+- 💾 **MCP Memory Storage**: File-based LLM conversation memory management with session tracking
 
 ---
 
@@ -73,6 +74,9 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 
 5. **Visit the application**
    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+6. **Explore MCP Memory Management**
+   Visit [http://localhost:3000/mcp-memory](http://localhost:3000/mcp-memory) to manage LLM conversation memory.
 
 ---
 
@@ -138,6 +142,15 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 - `GET /api/context-profiles/[id]` - Get specific context
 - `PUT /api/context-profiles/[id]` - Update context
 - `DELETE /api/context-profiles/[id]` - Delete context
+
+### MCP Memory Storage
+- `GET /api/mcp-memory` - Get all memory sessions
+- `POST /api/mcp-memory` - Create new memory session
+- `GET /api/mcp-memory/[id]` - Get specific session
+- `POST /api/mcp-memory/[id]` - Add memory entry to session
+- `DELETE /api/mcp-memory/[id]` - Delete session
+- `GET /api/mcp-memory/[id]/export` - Export session as JSON
+- `POST /api/mcp-memory/[id]/export` - Import session from JSON
 
 ### AI Review
 - `POST /api/reviewRule` - Review prompt against rules
