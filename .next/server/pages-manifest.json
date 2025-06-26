@@ -1,1 +1,12 @@
-{}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/api/context-profiles/[id]": "pages/api/context-profiles/[id].js",
+  "/api/context-profiles": "pages/api/context-profiles.js",
+  "/api": "pages/api.js",
+  "/api/prompt-rules/[id]": "pages/api/prompt-rules/[id].js",
+  "/api/prompt-rules": "pages/api/prompt-rules.js",
+  "/": "pages/index.html",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
