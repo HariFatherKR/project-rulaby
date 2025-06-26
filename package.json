@@ -1,0 +1,37 @@
+{
+  "name": "rulaby",
+  "version": "0.1.0",
+  "description": "AI 기반 프롬프트 룰 공유 SaaS - 팀 단위 프롬프트 스타일 가이드 제공",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "ai",
+    "prompt",
+    "rules",
+    "saas",
+    "team",
+    "collaboration",
+    "mcp"
+  ],
+  "author": "하리아빠",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^15.3.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.29.0",
+    "eslint-config-next": "^15.3.4",
+    "typescript": "^5.8.3"
+  }
+}
