@@ -18,8 +18,8 @@ export interface ContextProfile {
   maintainedBy: string
 }
 
-// Types for creating new documents (without id)
-export type CreatePromptRule = Omit<PromptRule, 'id'>
+// Types for creating new documents (without id and auto-generated fields)
+export type CreatePromptRule = Omit<PromptRule, 'id' | 'createdAt'>
 export type CreateContextProfile = Omit<ContextProfile, 'id'>
 
 // Collection names constants
