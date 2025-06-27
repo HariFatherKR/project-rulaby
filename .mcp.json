@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rulaby": {
+      "command": "npx",
+      "args": ["@hyto/rulaby-mcp-server"],
+      "env": {}
+    }
+  }
+}
