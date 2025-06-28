@@ -30,6 +30,12 @@ export default function Header({ title = "Rulaby" }: HeaderProps) {
           >
             컨텍스트 설정
           </Link>
+          <Link 
+            href="/analytics" 
+            className="text-gray-600 hover:text-gray-900 font-medium"
+          >
+            분석 대시보드
+          </Link>
         </nav>
       </div>
     </header>

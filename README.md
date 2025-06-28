@@ -35,6 +35,16 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 - 🔍 **AI Review Results**: Detailed feedback and suggestions for prompt improvement
 - 💾 **MCP Memory Storage**: File-based LLM conversation memory management with session tracking
 
+### 🚀 Advanced Features (New)
+
+- 📊 **Real-time Analytics**: Track rule usage patterns, token optimization insights
+- 🏆 **Rule Leaderboard**: Popular rule rankings with category filtering
+- 🎯 **Awesome Cursor Rules Integration**: Browse and import community-verified rules
+- 🛡️ **Security Compliance Dashboard**: Built-in security best practices for Git, Firebase, AWS
+- 💡 **Smart Recommendations**: Technology stack-based personalized rule suggestions
+- 🎨 **Visualization Dashboard**: Team productivity, token efficiency, compliance status visualization
+- 🔧 **Developer Experience**: Optimized Claude Code integration, automatic context management
+
 ---
 
 ## 🚀 Quick Start
@@ -75,7 +85,13 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 5. **Visit the application**
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-6. **Explore MCP Memory Management**
+6. **Explore Analytics Dashboard**
+   Visit [http://localhost:3000/analytics](http://localhost:3000/analytics) to view team insights, rule leaderboards, and security compliance.
+
+7. **Browse Community Rules**
+   Access the Awesome Cursor Rules integration to import popular community rules.
+
+8. **Explore MCP Memory Management**
    Visit [http://localhost:3000/mcp-memory](http://localhost:3000/mcp-memory) to manage LLM conversation memory.
 
 ---
@@ -151,6 +167,22 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 - `DELETE /api/mcp-memory/[id]` - Delete session
 - `GET /api/mcp-memory/[id]/export` - Export session as JSON
 - `POST /api/mcp-memory/[id]/export` - Import session from JSON
+
+### Analytics & Insights
+- `GET /api/analytics?type=leaderboard` - Get rule popularity leaderboard
+- `GET /api/analytics?type=rule-analytics&ruleId={id}` - Get rule usage analytics
+- `GET /api/analytics?type=team-stats` - Get team-wide usage statistics
+- `POST /api/analytics` - Track rule usage
+
+### Security Compliance
+- `GET /api/security-rules` - Get all security rules
+- `GET /api/security-rules?category={category}` - Get rules by category
+- `POST /api/security-rules` - Create new security rule
+
+### Awesome Cursor Rules
+- `GET /api/awesome-cursor-rules?type=trending` - Get trending community rules
+- `GET /api/awesome-cursor-rules?type=by-stack&stack={tech}` - Get rules by tech stack
+- `POST /api/awesome-cursor-rules` - Import community rule
 
 ### AI Review
 - `POST /api/reviewRule` - Review prompt against rules

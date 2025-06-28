@@ -1,1 +1,9 @@
-{}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/analytics": "pages/analytics.js",
+  "/api/analytics": "pages/api/analytics.js",
+  "/api/awesome-cursor-rules": "pages/api/awesome-cursor-rules.js",
+  "/api/security-rules": "pages/api/security-rules.js"
+}

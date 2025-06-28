@@ -14,6 +14,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { promptRuleTools, handlePromptRuleTool } from './tools/promptRules.js';
 import { contextProfileTools, handleContextProfileTool } from './tools/contextProfiles.js';
+import { analyticsTools, handleAnalyticsTool } from './tools/analytics.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -156,6 +157,8 @@ class RulabyMCPServer {
         ...promptRuleTools,
         // Context profile tools
         ...contextProfileTools,
+        // Analytics tools
+        ...analyticsTools,
       ],
     }));
 
@@ -346,6 +349,11 @@ class RulabyMCPServer {
           // Check if it's a context profile tool
           if (contextProfileTools.some(tool => tool.name === request.params.name)) {
             return await handleContextProfileTool(request.params.name, request.params.arguments);
+          }
+          
+          // Check if it's an analytics tool
+          if (analyticsTools.some(tool => tool.name === request.params.name)) {
+            return await handleAnalyticsTool(request.params.name, request.params.arguments);
           }
           
           throw new McpError(
