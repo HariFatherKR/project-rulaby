@@ -37,20 +37,17 @@ export interface RetrieveResponse {
 
 export class RulabyAPIClient {
   private baseURL: string;
-  private apiKey?: string;
 
   constructor() {
-    // Use environment variable or default to production API
-    this.baseURL = process.env.RULABY_API_URL || 'https://rulaby.com/api';
-    this.apiKey = process.env.RULABY_API_KEY;
+    // Production API endpoint
+    this.baseURL = 'https://api.rulaby.dev/api/v1';
   }
 
   async createShare(data: ShareRequest): Promise<ShareResponse> {
     const response = await fetch(`${this.baseURL}/shares`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        ...(this.apiKey && { 'X-API-Key': this.apiKey })
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     });
@@ -65,10 +62,7 @@ export class RulabyAPIClient {
 
   async retrieveShare(shareCode: string): Promise<RetrieveResponse> {
     const response = await fetch(`${this.baseURL}/shares/${shareCode}`, {
-      method: 'GET',
-      headers: {
-        ...(this.apiKey && { 'X-API-Key': this.apiKey })
-      }
+      method: 'GET'
     });
 
     if (!response.ok) {
@@ -84,10 +78,7 @@ export class RulabyAPIClient {
 
   async incrementAccessCount(shareCode: string): Promise<void> {
     const response = await fetch(`${this.baseURL}/shares/${shareCode}/access`, {
-      method: 'POST',
-      headers: {
-        ...(this.apiKey && { 'X-API-Key': this.apiKey })
-      }
+      method: 'POST'
     });
 
     if (!response.ok) {

@@ -33,7 +33,7 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 - 📝 **Rule Management**: Create, edit, and organize prompting guidelines
 - 🎯 **Context Editor**: Role-based prompt templates and contexts
 - 🔍 **AI Review Results**: Detailed feedback and suggestions for prompt improvement
-- 💾 **MCP Memory Storage**: File-based LLM conversation memory management with session tracking
+- 💾 **MCP Rule Sharing**: Secure rule sharing via MCP with 24-hour expiration
 
 ---
 

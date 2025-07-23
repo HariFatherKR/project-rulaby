@@ -9,13 +9,13 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { handleShareRules, handleImportRules } from './tools/ruleSharing-api.js';
 
-class RulabyShareMCPServer {
+class RulabyMCPServer {
   private server: Server;
 
   constructor() {
     this.server = new Server(
       {
-        name: 'rulaby-share',
+        name: 'rulaby-mcp-server',
         version: '1.0.0',
       },
       {
@@ -45,8 +45,8 @@ class RulabyShareMCPServer {
               },
               expiresInDays: {
                 type: 'number',
-                description: 'Number of days before share expires (default: 30)',
-                default: 30
+                description: 'Number of days before share expires (default: 1 day = 24 hours)',
+                default: 1
               },
               maxUses: {
                 type: 'number',
@@ -108,5 +108,5 @@ class RulabyShareMCPServer {
 }
 
 // Main entry point
-const server = new RulabyShareMCPServer();
+const server = new RulabyMCPServer();
 server.run().catch(console.error);

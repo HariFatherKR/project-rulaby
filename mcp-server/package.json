@@ -1,5 +1,5 @@
 {
-  "name": "@hyto/rulaby-share",
+  "name": "@hyto/rulaby-mcp-server",
   "publishConfig": {
     "access": "public"
   },
@@ -8,7 +8,7 @@
   "main": "dist/index-minimal.js",
   "type": "module",
   "bin": {
-    "rulaby-share": "./dist/index-minimal.js"
+    "rulaby-mcp-server": "./dist/index-minimal.js"
   },
   "files": [
     "dist/**/*",
@@ -21,7 +21,7 @@
     "dev": "tsx src/index-minimal.ts",
     "test": "echo \"No tests yet\"",
     "prepublishOnly": "npm run build",
-    "postinstall": "echo \"Thank you for installing rulaby-share! See README.md for setup instructions.\""
+    "postinstall": "echo \"Thank you for installing rulaby-mcp-server! See README.md for setup instructions.\""
   },
   "keywords": [
     "mcp",
@@ -48,9 +48,7 @@
   },
   "homepage": "https://github.com/HariFatherKR/project-rulaby/tree/main/mcp-server",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.13.1",
-    "@supabase/supabase-js": "^2.52.0",
-    "dotenv": "^17.2.0"
+    "@modelcontextprotocol/sdk": "^1.13.1"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",

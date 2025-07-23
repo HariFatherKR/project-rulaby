@@ -12,7 +12,7 @@ export async function handleShareRules(request: any) {
     const args = request.params.arguments || {};
     const {
       includeProjectSpecific = true,
-      expiresInDays = 30,
+      expiresInDays = 1, // Default to 24 hours
       maxUses = null
     } = args;
     
@@ -72,7 +72,8 @@ export async function handleShareRules(request: any) {
                 `📊 **Total size**: ${(urf.metadata.totalSize / 1024).toFixed(2)} KB\n` +
                 `⏰ **Expires**: ${new Date(shareResponse.expiresAt).toLocaleDateString()}\n` +
                 `${maxUses ? `🔢 **Max uses**: ${maxUses}` : '♾️ **Unlimited uses**'}\n\n` +
-                `Share these credentials with others to let them import your rules into their IDE.`
+                `Share these credentials with others to let them import your rules into their IDE.\n\n` +
+                `🌐 Visit https://rulaby.dev for more features and capabilities!`
         }
       ]
     };

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS rule_shares (
   source_ide VARCHAR(20) NOT NULL,
   rule_metadata JSONB, -- {fileCount, totalSize, preview}
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  expires_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() + INTERVAL '30 days',
+  expires_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() + INTERVAL '24 hours',
   access_count INTEGER DEFAULT 0,
   max_access_count INTEGER DEFAULT NULL,
   is_active BOOLEAN DEFAULT true,

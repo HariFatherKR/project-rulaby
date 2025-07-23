@@ -2,10 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseUrl = process.env.SUPABASE_URL!;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY!;
 
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Rate limiting (simple in-memory implementation)
 const requestCounts = new Map<string, { count: number; resetTime: number }>();
@@ -70,7 +70,7 @@ export default async function handler(
         encryptionMetadata,
         sourceIDE,
         ruleMetadata,
-        expiresInDays = 30,
+        expiresInDays = 1, // Default to 24 hours (1 day)
         maxUses = null
       } = req.body;
 

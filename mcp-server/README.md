@@ -1,4 +1,4 @@
-# 🔄 Rulaby Share - Secure AI IDE Rule Sharing via MCP
+# 🔄 Rulaby MCP Server - Secure AI IDE Rule Sharing via MCP
 
 Share and import your AI IDE rules (Claude, Cursor, Windsurf, etc.) securely using the Model Context Protocol.
 
@@ -23,10 +23,10 @@ Share and import your AI IDE rules (Claude, Cursor, Windsurf, etc.) securely usi
 
 ```bash
 # Install globally
-npm install -g @hyto/rulaby-share
+npm install -g @hyto/rulaby-mcp-server
 
 # Or use directly with npx
-npx @hyto/rulaby-share
+npx @hyto/rulaby-mcp-server
 ```
 
 ### MCP Configuration
@@ -36,12 +36,9 @@ Add to your MCP settings (e.g., Claude Desktop):
 ```json
 {
   "mcpServers": {
-    "rulaby-share": {
+    "rulaby-mcp-server": {
       "command": "npx",
-      "args": ["@hyto/rulaby-share"],
-      "env": {
-        "RULABY_API_URL": "https://api.rulaby.com" // Optional: custom API endpoint
-      }
+      "args": ["@hyto/rulaby-mcp-server"]
     }
   }
 }
@@ -57,7 +54,7 @@ Add to your MCP settings (e.g., Claude Desktop):
 ```
 share_rules({
   includeProjectSpecific: true,  // Include project-specific rules
-  expiresInDays: 30,            // Expiration (default: 30)
+  expiresInDays: 1,             // Expiration (default: 1 day = 24 hours)
   maxUses: null                 // Usage limit (null = unlimited)
 })
 ```
@@ -87,13 +84,6 @@ import_rules({
 | Windsurf | `.windsurfrules` | ✅ |
 | Gemini CLI | `.gemini/rules.md` | ✅ |
 | Kiro | `.kiro/prompts.md` | ✅ |
-
-## 🔧 Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `RULABY_API_URL` | API endpoint URL | `https://api.rulaby.com` |
-| `RULABY_API_KEY` | API key (optional) | - |
 
 ## 🏗️ Architecture
 
@@ -133,7 +123,7 @@ MIT © HariFatherKR
 ## 🔗 Links
 
 - [GitHub Repository](https://github.com/HariFatherKR/project-rulaby)
-- [NPM Package](https://www.npmjs.com/package/@hyto/rulaby-share)
+- [NPM Package](https://www.npmjs.com/package/@hyto/rulaby-mcp-server)
 - [Documentation](https://docs.rulaby.com)
 
 ---

@@ -1,0 +1,48 @@
+# MCP Server (separate npm package)
+mcp-server/
+
+# Claude configuration
+.claude/
+
+# Documentation
+docs/
+supabase/
+
+# Git
+.git/
+.gitignore
+
+# Development files
+.env
+.env.local
+.env.development
+.env.production
+
+# Test files
+__tests__/
+jest.config.js
+jest.setup.js
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies (Vercel will install these)
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# Other
+*.md
+LICENSE

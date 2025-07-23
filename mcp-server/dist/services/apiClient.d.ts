@@ -34,7 +34,6 @@ export interface RetrieveResponse {
 }
 export declare class RulabyAPIClient {
     private baseURL;
-    private apiKey?;
     constructor();
     createShare(data: ShareRequest): Promise<ShareResponse>;
     retrieveShare(shareCode: string): Promise<RetrieveResponse>;
