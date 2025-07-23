@@ -108,7 +108,7 @@ import_rules({
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see our [Contributing Guide](https://github.com/HariFatherKR/project-rulaby/blob/main/CONTRIBUTING.md).
+Contributions are welcome!
 
 ## 📄 License
 
@@ -125,6 +125,22 @@ MIT © HariFatherKR
 - [GitHub Repository](https://github.com/HariFatherKR/project-rulaby)
 - [NPM Package](https://www.npmjs.com/package/@hyto/rulaby-mcp-server)
 - [Documentation](https://docs.rulaby.com)
+
+## 📝 Changelog
+
+### v1.0.1 (2025-07-23)
+- Removed debug endpoints after successful deployment
+- Fixed health check endpoint URL for Vercel deployment
+- Enhanced rule sharing system with 24-hour expiration
+- Improved security features
+- Removed Firebase dependencies and migrated to Serverless API
+
+### v1.0.0 (2025-07-22)
+- Initial release with MCP server for secure rule sharing
+- Support for multiple AI IDEs (Claude Code, Cursor, Windsurf, etc.)
+- End-to-end encryption with password protection
+- Automatic format conversion between IDEs
+- Expiration control and usage limits
 
 ---
 
