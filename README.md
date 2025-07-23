@@ -43,7 +43,7 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 
 - Node.js 18+ 
 - npm or yarn
-- Firebase project (for database)
+- Supabase project (for rule sharing)
 - OpenAI API key (for AI review features)
 
 ### Installation
@@ -64,7 +64,7 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
    cp .env.example .env
    ```
    Edit `.env` with your configuration:
-   - Firebase credentials
+   - Supabase credentials (for rule sharing)
    - OpenAI API key
 
 4. **Run the development server**
@@ -114,11 +114,11 @@ Yet there is no standard. **Rulaby** fills this gap with a simple, intuitive sys
 
 ## 🔧 Configuration
 
-### Firebase Setup
+### Supabase Setup (for Rule Sharing)
 
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com)
-2. Enable Firestore Database
-3. Copy your project configuration to `.env`
+1. Create a Supabase project at [Supabase Dashboard](https://supabase.com)
+2. Run the SQL migrations from `supabase/migrations/`
+3. Copy your project URL and anon key to `.env`
 
 ### OpenAI Setup
 
