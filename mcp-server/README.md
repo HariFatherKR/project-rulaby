@@ -1,99 +1,141 @@
-# Rulaby MCP Server
+# 🔄 Rulaby Share - Secure AI IDE Rule Sharing via MCP
 
-Rulaby의 Model Context Protocol (MCP) 서버 구현입니다.
+Share and import your AI IDE rules (Claude, Cursor, Windsurf, etc.) securely using the Model Context Protocol.
 
-## 기능
+## ✨ Features
 
-### 🧠 메모리 세션 관리
-- `create_memory_session`: 새로운 메모리 세션 생성
-- `list_memory_sessions`: 모든 메모리 세션 목록 조회
-- `add_memory_entry`: 세션에 대화 내용 추가
-- `get_memory_session`: 특정 세션 조회
-- `delete_memory_session`: 세션 삭제
+- 🔐 **Secure Sharing** - End-to-end encryption with password protection
+- 🤖 **Multi-IDE Support** - Claude Code, Cursor, Windsurf, Gemini CLI, and more
+- 🔄 **Format Conversion** - Automatically converts rules between different IDE formats
+- 📦 **MCP Integration** - Works seamlessly with MCP-enabled environments
+- ⏰ **Expiration Control** - Set expiration dates and usage limits
+- 🚀 **Simple CLI** - Easy to use command-line interface
 
-### 📚 프롬프트 룰 관리
-- `create_prompt_rule`: 새로운 프롬프트 룰 생성
-- `list_prompt_rules`: 프롬프트 룰 목록 조회 (카테고리 필터링 지원)
-- `get_prompt_rule`: 특정 룰 조회
-- `update_prompt_rule`: 룰 수정
-- `delete_prompt_rule`: 룰 삭제
+## 📋 Prerequisites
 
-### 🎭 컨텍스트 프로필 관리
-- `create_context_profile`: 새로운 컨텍스트 프로필 생성
-- `list_context_profiles`: 프로필 목록 조회 (역할 필터링 지원)
-- `get_context_profile`: 특정 프로필 조회
-- `update_context_profile`: 프로필 수정
-- `delete_context_profile`: 프로필 삭제
+- Node.js 18+ 
+- An MCP-compatible client (Claude Desktop, VS Code with MCP extension, etc.)
+- Internet connection (for API access)
 
-## 설치 및 실행
+## 🚀 Quick Start
 
-### 1. 의존성 설치
+### Installation
+
 ```bash
-cd mcp-server
-npm install
+# Install globally
+npm install -g @hyto/rulaby-share
+
+# Or use directly with npx
+npx @hyto/rulaby-share
 ```
 
-### 2. 빌드
-```bash
-npm run build
-```
+### MCP Configuration
 
-### 3. 개발 모드 실행
-```bash
-npm run dev
-```
-
-### 4. 프로덕션 실행
-```bash
-npm start
-```
-
-## Claude Code 연동
-
-1. Claude Code 설정 파일 (`~/.config/claude/claude_desktop_config.json`)에 추가:
+Add to your MCP settings (e.g., Claude Desktop):
 
 ```json
 {
   "mcpServers": {
-    "rulaby": {
-      "command": "node",
-      "args": ["/path/to/project-rulaby/mcp-server/dist/index.js"]
+    "rulaby-share": {
+      "command": "npx",
+      "args": ["@hyto/rulaby-share"],
+      "env": {
+        "RULABY_API_URL": "https://api.rulaby.com" // Optional: custom API endpoint
+      }
     }
   }
 }
 ```
 
-2. Claude Code 재시작
+## 📖 Usage
 
-3. 사용 가능한 도구 확인:
-   - Claude Code에서 `/mcp` 명령어로 연결된 서버 확인
-   - 도구 목록이 표시되면 정상 연동 완료
+### Sharing Rules
 
-## 데이터 저장 구조
+1. Navigate to your project directory containing IDE rule files
+2. Use the `share_rules` tool in your MCP client:
 
 ```
-data/
-├── mcp-memory/         # 메모리 세션 파일
-├── prompt-rules/       # 프롬프트 룰 파일
-└── context-profiles/   # 컨텍스트 프로필 파일
+share_rules({
+  includeProjectSpecific: true,  // Include project-specific rules
+  expiresInDays: 30,            // Expiration (default: 30)
+  maxUses: null                 // Usage limit (null = unlimited)
+})
 ```
 
-각 데이터는 JSON 파일로 저장되며, 파일명은 고유 ID를 사용합니다.
+You'll receive:
+- **Share Code**: `RULABY-XXXX-XXXX`
+- **Password**: `SecurePassword123!`
 
-## 개발 가이드
+### Importing Rules
 
-### 새로운 도구 추가하기
+Use the `import_rules` tool with the share credentials:
 
-1. `src/tools/` 디렉토리에 새 파일 생성
-2. 도구 정의 및 핸들러 함수 구현
-3. `src/index.ts`에 도구 import 및 등록
-
-### 테스트
-
-```bash
-npm test
+```
+import_rules({
+  shareCode: "RULABY-XXXX-XXXX",
+  password: "SecurePassword123!",
+  targetIDE: "claude-code"  // Optional: auto-detected if not specified
+})
 ```
 
-## 라이선스
+## 🛠️ Supported IDEs
 
-MIT License
+| IDE | Rule File | Auto-Detection |
+|-----|-----------|----------------|
+| Claude Code | `.claude/CLAUDE.md` | ✅ |
+| Cursor | `.cursorrules` | ✅ |
+| Windsurf | `.windsurfrules` | ✅ |
+| Gemini CLI | `.gemini/rules.md` | ✅ |
+| Kiro | `.kiro/prompts.md` | ✅ |
+
+## 🔧 Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `RULABY_API_URL` | API endpoint URL | `https://api.rulaby.com` |
+| `RULABY_API_KEY` | API key (optional) | - |
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│   MCP Client    │────▶│  Rulaby API      │────▶│    Database     │
+│ (Your Machine)  │     │  (Serverless)    │     │   (Encrypted)   │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+```
+
+- **Local Processing**: File detection and encryption happen on your machine
+- **Secure API**: Only encrypted data is sent to the server
+- **No Credentials Stored**: Passwords are never stored on the server
+
+## 🔒 Security
+
+- **End-to-End Encryption**: AES-256-GCM encryption with password-based key derivation
+- **Client-Side Encryption**: All encryption happens locally before transmission
+- **No Plain Text Storage**: Server never sees unencrypted rules
+- **Automatic Expiration**: Shares expire after the specified period
+- **Access Limiting**: Optional usage limits for shares
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/HariFatherKR/project-rulaby/blob/main/CONTRIBUTING.md).
+
+## 📄 License
+
+MIT © HariFatherKR
+
+## 🆘 Support
+
+- **Issues**: [GitHub Issues](https://github.com/HariFatherKR/project-rulaby/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/HariFatherKR/project-rulaby/discussions)
+- **Email**: support@rulaby.com
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/HariFatherKR/project-rulaby)
+- [NPM Package](https://www.npmjs.com/package/@hyto/rulaby-share)
+- [Documentation](https://docs.rulaby.com)
+
+---
+
+Made with ❤️ by the Rulaby team

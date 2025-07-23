@@ -1,9 +1,26 @@
+# Source files
 src/
-tsconfig.json
 *.ts
-node_modules/
-.git/
-.gitignore
+!dist/**/*.d.ts
+
+# Config files
+tsconfig.json
+.env
+.env.example
+
+# Test files
+*.test.*
+*.spec.*
+__tests__/
+
+# Development files
 *.log
-*.tgz
+node_modules/
 .DS_Store
+
+# Build artifacts
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/

@@ -1,35 +1,56 @@
 {
-  "name": "@hyto/rulaby-mcp-server",
+  "name": "@hyto/rulaby-share",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.0",
-  "description": "MCP server for Rulaby - AI prompt rule management",
-  "main": "dist/index.js",
+  "version": "1.0.0",
+  "description": "Share and import AI IDE rules securely via MCP (Model Context Protocol)",
+  "main": "dist/index-minimal.js",
   "type": "module",
   "bin": {
-    "rulaby-mcp-server": "./dist/index.js"
+    "rulaby-share": "./dist/index-minimal.js"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "tsx src/index.ts",
-    "test": "jest",
-    "prepublishOnly": "npm run build"
+    "build": "tsc && chmod +x dist/index-minimal.js",
+    "start": "node dist/index-minimal.js",
+    "dev": "tsx src/index-minimal.ts",
+    "test": "echo \"No tests yet\"",
+    "prepublishOnly": "npm run build",
+    "postinstall": "echo \"Thank you for installing rulaby-share! See README.md for setup instructions.\""
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "ai",
     "prompt",
-    "rulaby"
+    "rules",
+    "share",
+    "claude",
+    "cursor",
+    "windsurf",
+    "ide",
+    "llm"
   ],
   "author": "하리아빠",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HariFatherKR/project-rulaby.git",
+    "directory": "mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/HariFatherKR/project-rulaby/issues"
+  },
+  "homepage": "https://github.com/HariFatherKR/project-rulaby/tree/main/mcp-server",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.13.1"
+    "@modelcontextprotocol/sdk": "^1.13.1",
+    "@supabase/supabase-js": "^2.52.0",
+    "dotenv": "^17.2.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
