@@ -12,8 +12,9 @@ export default async function handler(
 
   // Test shares endpoint
   try {
+    // Use the deployed domain or localhost
     const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
+      ? `https://api.rulaby.dev` 
       : `http://localhost:${process.env.PORT || 3000}`
     
     const sharesResponse = await fetch(`${baseUrl}/api/v1/shares/test-health`, {
@@ -22,6 +23,7 @@ export default async function handler(
     })
     endpoints.shares = sharesResponse.ok
   } catch (error) {
+    console.error('Health check error:', error)
     endpoints.shares = false
   }
 
