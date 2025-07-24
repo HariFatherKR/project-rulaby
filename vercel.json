@@ -5,6 +5,9 @@
     },
     "pages/api/v1/shares/[shareCode].ts": {
       "maxDuration": 10
+    },
+    "pages/api/v1/templates.ts": {
+      "maxDuration": 10
     }
   },
   "headers": [

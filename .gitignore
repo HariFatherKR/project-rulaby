@@ -1,6 +1,18 @@
 # Dependencies
 /node_modules
 /mcp-server/node_modules
+/mcp-server/dist
+/mcp-server/*.log
+/mcp-server/.env
+/mcp-server/.DS_Store
+
+# Development files (not for production)
+.cursor
+/.cursor
+/scripts
+/supabase
+
+# Package manager
 /.pnp
 .pnp.js
 

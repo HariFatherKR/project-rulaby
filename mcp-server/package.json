@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "Share and import AI IDE rules securely via MCP (Model Context Protocol)",
   "main": "dist/index-minimal.js",
   "type": "module",
@@ -48,7 +48,8 @@
   },
   "homepage": "https://github.com/HariFatherKR/project-rulaby/tree/main/mcp-server",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.13.1"
+    "@modelcontextprotocol/sdk": "^1.13.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",

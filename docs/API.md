@@ -2,7 +2,7 @@
 
 ## Base URL
 
-Production: `https://rulaby.com/api`
+Production: `https://api.rulaby.dev/api`
 Development: `http://localhost:3000/api`
 
 ## Authentication
@@ -137,7 +137,7 @@ All error responses follow this format:
 ### JavaScript/TypeScript
 ```typescript
 // Create a share
-const response = await fetch('https://api.rulaby.com/shares', {
+const response = await fetch('https://api.rulaby.dev/shares', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ const { shareCode } = await response.json();
 ### cURL
 ```bash
 # Create a share
-curl -X POST https://api.rulaby.com/shares \
+curl -X POST https://api.rulaby.dev/shares \
   -H "Content-Type: application/json" \
   -d '{
     "encryptedData": "...",
@@ -166,5 +166,5 @@ curl -X POST https://api.rulaby.com/shares \
   }'
 
 # Retrieve a share
-curl https://api.rulaby.com/shares/RULABY-XXXX-XXXX
+curl https://api.rulaby.dev/shares/RULABY-XXXX-XXXX
 ```

@@ -1,12 +1,16 @@
 # MCP Server (separate npm package)
 mcp-server/
 
+# Development folders that shouldn't be deployed
+.cursor/
+scripts/
+supabase/
+
 # Claude configuration
 .claude/
 
 # Documentation
 docs/
-supabase/
 
 # Git
 .git/

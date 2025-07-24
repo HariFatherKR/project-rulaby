@@ -3,6 +3,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ErrorCode, ListToolsRequestSchema, McpError, } from "@modelcontextprotocol/sdk/types.js";
 import { handleShareRules, handleImportRules, } from "./tools/ruleSharing-api.js";
+import { handleAddTemplateRule, handleListTemplates, } from "./tools/templateRules.js";
 class RulabyMCPServer {
     constructor() {
         this.server = new Server({
@@ -72,6 +73,39 @@ class RulabyMCPServer {
                         required: ["shareCode", "password"],
                     },
                 },
+                {
+                    name: "add_template_rule",
+                    description: "Add template rules to your project from local cache or remote server",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            templateId: {
+                                type: "string",
+                                description: "Specific template ID to add (e.g., 'react', 'advanced-react-patterns')",
+                            },
+                            category: {
+                                type: "string",
+                                description: "Category of rules to add (local only) (e.g., 'framework', 'language', 'style')",
+                            },
+                            projectType: {
+                                type: "string",
+                                description: "Type of project (e.g., 'web', 'api', 'mobile')",
+                            },
+                            targetPath: {
+                                type: "string",
+                                description: "Target path for the rule file (defaults to current directory)",
+                            },
+                        },
+                    },
+                },
+                {
+                    name: "list_templates",
+                    description: "List all available template rules organized by category",
+                    inputSchema: {
+                        type: "object",
+                        properties: {},
+                    },
+                },
             ],
         }));
         // Handle tool calls
@@ -81,6 +115,10 @@ class RulabyMCPServer {
                     return await handleShareRules(request);
                 case "import_rules":
                     return await handleImportRules(request);
+                case "add_template_rule":
+                    return await handleAddTemplateRule(request);
+                case "list_templates":
+                    return await handleListTemplates();
                 default:
                     throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${request.params.name}`);
             }
