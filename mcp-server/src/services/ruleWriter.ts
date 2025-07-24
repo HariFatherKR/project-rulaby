@@ -8,7 +8,7 @@ export class RuleWriter {
     convertedRule: ConvertedRule,
     customPath?: string
   ): Promise<void> {
-    const basePath = customPath ? path.resolve(customPath) : os.homedir();
+    const basePath = customPath ? path.resolve(customPath) : process.cwd();
     console.log(`[RuleWriter] basePath: ${basePath}`);
 
     for (const file of convertedRule.files) {
@@ -37,7 +37,7 @@ export class RuleWriter {
     ide: string,
     customPath?: string
   ): Promise<void> {
-    const basePath = customPath ? path.resolve(customPath) : os.homedir();
+    const basePath = customPath ? path.resolve(customPath) : process.cwd();
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
 
     // Define rule files to backup based on IDE

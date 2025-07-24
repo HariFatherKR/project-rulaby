@@ -1,9 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
-import os from "os";
 export class RuleWriter {
     static async writeRules(convertedRule, customPath) {
-        const basePath = customPath ? path.resolve(customPath) : os.homedir();
+        const basePath = customPath ? path.resolve(customPath) : process.cwd();
         console.log(`[RuleWriter] basePath: ${basePath}`);
         for (const file of convertedRule.files) {
             const fullPath = path.join(basePath, file.path);
@@ -25,7 +24,7 @@ export class RuleWriter {
         }
     }
     static async backupExistingRules(ide, customPath) {
-        const basePath = customPath ? path.resolve(customPath) : os.homedir();
+        const basePath = customPath ? path.resolve(customPath) : process.cwd();
         const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
         // Define rule files to backup based on IDE
         const ruleFiles = this.getRuleFilesByIDE(ide);

@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Share and import AI IDE rules securely via MCP (Model Context Protocol)",
   "main": "dist/index-minimal.js",
   "type": "module",

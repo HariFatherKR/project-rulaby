@@ -98,7 +98,7 @@ export async function handleImportRules(request: any) {
   try {
     const args = request.params.arguments || {};
     const { shareCode, password, targetIDE } = args;
-    const path = args.path || process.env.CWD;
+    const path = args.path || process.cwd();
 
     // Validate inputs
     if (!shareCode || !password) {
@@ -144,6 +144,7 @@ export async function handleImportRules(request: any) {
 
     // Step 3: Parse URF
     const urf = JSON.parse(decryptedData);
+    console.error(`[Import] Parsed URF:`, JSON.stringify(urf, null, 2));
 
     // Step 4: Detect or use specified target IDE
     const detectedIDE = targetIDE || (await RuleDetector.detectCurrentIDE());
@@ -160,9 +161,11 @@ export async function handleImportRules(request: any) {
 
     // Step 6: Convert rules to target format
     const convertedRules = RuleConverter.fromURF(urf, detectedIDE);
+    console.error(`[Import] Converted rules for ${detectedIDE}:`, JSON.stringify(convertedRules, null, 2));
 
     // Step 7: Write rule files
     await RuleWriter.writeRules(convertedRules, path);
+    console.error(`[Import] Rules written to path: ${path}`);
 
     // Step 8: Update access count (non-blocking)
     apiClient.incrementAccessCount(shareCode).catch(() => {

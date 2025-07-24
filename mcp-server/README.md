@@ -161,6 +161,13 @@ MIT © HariFatherKR
 
 ## 📝 변경 로그
 
+### v1.1.4 (2025-07-24)
+
+- `import_rules` 경로 문제 수정: 홈 디렉토리 대신 현재 작업 디렉토리에 규칙 파일 생성
+- process.env.CWD를 process.cwd()로 변경하여 올바른 작업 디렉토리 감지
+- RuleWriter의 기본 경로를 os.homedir() 대신 process.cwd()로 변경
+- URF 파싱 및 규칙 변환 추적을 위한 디버그 로깅 추가
+
 ### v1.1.3 (2025-07-24)
 
 - MCP 서버의 규칙 파서 버그를 수정하여 claude-code 형식의 규칙을 올바르게 파싱하도록 개선
