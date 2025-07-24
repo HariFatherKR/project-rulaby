@@ -1,6 +1,6 @@
-import { DetectedRule } from './ruleDetector.js';
+import { DetectedRule } from "./ruleDetector.js";
 export interface UniversalRuleFormat {
-    version: '1.0';
+    version: "1.0";
     metadata: {
         sourceIDE: string;
         created: string;

@@ -1,38 +1,38 @@
-# 🔄 Rulaby MCP Server - Secure AI IDE Rule Sharing via MCP
+# 🔄 Rulaby MCP 서버 - MCP를 통한 안전한 AI IDE 규칙 공유
 
-Share and import your AI IDE rules (Claude, Cursor, Windsurf, etc.) securely using the Model Context Protocol.
+모델 컨텍스트 프로토콜(MCP)을 사용하여 AI IDE 규칙(Claude, Cursor, Windsurf 등)을 안전하게 공유하고 가져올 수 있습니다.
 
-## ✨ Features
+## ✨ 주요 기능
 
-- 🔐 **Secure Sharing** - End-to-end encryption with password protection
-- 🤖 **Multi-IDE Support** - Claude Code, Cursor, Windsurf, Gemini CLI, and more
-- 🔄 **Format Conversion** - Automatically converts rules between different IDE formats
-- 📦 **MCP Integration** - Works seamlessly with MCP-enabled environments
-- ⏰ **Expiration Control** - Set expiration dates and usage limits
-- 📚 **Template Library** - Access curated rule templates for various frameworks and languages
-- 🚀 **Simple CLI** - Easy to use command-line interface
+- 🔐 **안전한 공유** - 비밀번호 보호 기능이 있는 종단 간 암호화
+- 🤖 **다중 IDE 지원** - Claude Code, Cursor, Windsurf, Gemini CLI 등 지원
+- 🔄 **포맷 변환** - 다른 IDE 포맷 간 규칙 자동 변환
+- 📦 **MCP 통합** - MCP 지원 환경과 원활하게 연동
+- ⏰ **만료 제어** - 만료 날짜 및 사용 횟수 제한 설정
+- 📚 **템플릿 라이브러리** - 다양한 프레임워크와 언어를 위한 큐레이션된 규칙 템플릿 접근
+- 🚀 **간단한 CLI** - 사용하기 쉬운 명령줄 인터페이스
 
-## 📋 Prerequisites
+## 📋 사전 요구사항
 
-- Node.js 18+ 
-- An MCP-compatible client (Claude Desktop, VS Code with MCP extension, etc.)
-- Internet connection (for API access)
+- Node.js 18+
+- MCP 호환 클라이언트 (Claude Desktop, MCP 확장 기능이 설치된 VS Code 등)
+- 인터넷 연결 (API 접근용)
 
-## 🚀 Quick Start
+## 🚀 빠른 시작
 
-### Installation
+### 설치
 
 ```bash
-# Install globally
+# 전역 설치
 npm install -g @hyto/rulaby-mcp-server
 
-# Or use directly with npx
+# 또는 npx로 바로 사용
 npx @hyto/rulaby-mcp-server
 ```
 
-### MCP Configuration
+### MCP 설정
 
-Add to your MCP settings (e.g., Claude Desktop):
+MCP 설정에 추가 (예: Claude Desktop):
 
 ```json
 {
@@ -45,153 +45,165 @@ Add to your MCP settings (e.g., Claude Desktop):
 }
 ```
 
-## 📖 Usage
+## 📖 사용법
 
-### Sharing Rules
+### 규칙 공유하기
 
-1. Navigate to your project directory containing IDE rule files
-2. Use the `share_rules` tool in your MCP client:
+1. IDE 규칙 파일이 있는 프로젝트 디렉터리로 이동합니다.
+2. MCP 클라이언트에서 `share_rules` 도구를 사용합니다:
 
 ```
 share_rules({
-  includeProjectSpecific: true,  // Include project-specific rules
-  expiresInDays: 1,             // Expiration (default: 1 day = 24 hours)
-  maxUses: null                 // Usage limit (null = unlimited)
+  includeProjectSpecific: true,  // 프로젝트별 규칙 포함
+  expiresInDays: 1,             // 만료 기간 (기본값: 1일 = 24시간)
+  maxUses: null                 // 사용 횟수 제한 (null = 무제한)
 })
 ```
 
-You'll receive:
-- **Share Code**: `RULABY-XXXX-XXXX`
-- **Password**: `SecurePassword123!`
+다음 정보를 받게 됩니다:
 
-### Importing Rules
+- **공유 코드**: `RULABY-XXXX-XXXX`
+- **비밀번호**: `SecurePassword123!`
 
-Use the `import_rules` tool with the share credentials:
+### 규칙 가져오기
+
+공유된 정보와 함께 `import_rules` 도구를 사용합니다:
 
 ```
 import_rules({
   shareCode: "RULABY-XXXX-XXXX",
   password: "SecurePassword123!",
-  targetIDE: "claude-code"  // Optional: auto-detected if not specified
+  targetIDE: "claude-code"  // 선택 사항: 지정하지 않으면 자동으로 감지됨
 })
 ```
 
-### Adding Template Rules
+### 템플릿 규칙 추가하기
 
-Browse and add pre-configured template rules to your project:
+미리 구성된 템플릿 규칙을 찾아 프로젝트에 추가합니다:
 
 ```
-# List all available templates (local + remote)
+# 사용 가능한 모든 템플릿 목록 보기 (로컬 + 원격)
 list_templates()
 
-# Add specific template by ID
+# ID로 특정 템플릿 추가
 add_template_rule({
-  templateId: "react"        // Uses local cache if available
+  templateId: "react"        // 로컬 캐시가 있으면 사용
 })
 
-# Add remote template from server
+# 서버에서 원격 템플릿 추가
 add_template_rule({
-  templateId: "advanced-react-patterns"  // Fetches from server
+  templateId: "advanced-react-patterns"  // 서버에서 가져옴
 })
 
-# Add templates by category (local only)
+# 카테고리별로 템플릿 추가 (로컬 전용)
 add_template_rule({
-  category: "framework",     // Options: framework, language, style, backend, workflow
+  category: "framework",     // 옵션: framework, language, style, backend, workflow
   targetPath: "/path/to/project"
 })
 ```
 
-**Template System:**
-- **🏠 Local Templates**: 16 essential templates included in npm package (44KB)
-- **☁️ Remote Templates**: Full library available from server with usage analytics
-- **📊 Analytics**: Tracks template usage to show popular choices
-- **⚡ Smart Loading**: Uses local cache first, falls back to server
+**템플릿 시스템:**
 
-**Popular Templates:**
+- **🏠 로컬 템플릿**: npm 패키지에 16개의 필수 템플릿 포함 (44KB)
+- **☁️ 원격 템플릿**: 서버에서 전체 라이브러리 사용 가능 (사용 통계 포함)
+- **📊 분석**: 템플릿 사용량을 추적하여 인기 있는 선택지를 보여줌
+- **⚡ 스마트 로딩**: 로컬 캐시를 먼저 사용하고, 없으면 서버에서 가져옴
+
+**인기 템플릿:**
+
 - React, TypeScript, Next.js, Tailwind CSS
 - Python, FastAPI, Node.js, Express
 - Clean Code, Git Flow, Database patterns
-- And 100+ more on the server...
+- 그 외 100개 이상의 템플릿이 서버에 있습니다...
 
-## 🛠️ Supported IDEs
+## ⚠️ 알려진 문제 및 주의사항
 
-| IDE | Rule File | Auto-Detection |
-|-----|-----------|----------------|
-| Claude Code | `.claude/CLAUDE.md` | ✅ |
-| Cursor | `.cursorrules` | ✅ |
-| Windsurf | `.windsurfrules` | ✅ |
-| Gemini CLI | `.gemini/rules.md` | ✅ |
-| Kiro | `.kiro/prompts.md` | ✅ |
+- **규칙 가져오기 버그**: 현재 `import_rules` 기능에 심각한 버그가 있습니다. API 서버에서 데이터를 성공적으로 가져오지만, 클라이언트 측에서 데이터를 파일로 올바르게 쓰지 못하는 문제가 있습니다. 이로 인해 내용이 비어있는 규칙 파일이 생성될 수 있습니다. 이 문제가 해결되기 전까지 규칙 가져오기 기능은 정상적으로 작동하지 않을 수 있습니다.
+- **`path` 인수 동작**: `import_rules`에 문서화되지 않은 `path` 인수가 있습니다. 이 인수를 사용하면, 제공된 경로를 이름으로 하는 **폴더**가 생성되고 그 안에 규칙 파일이 생성됩니다. 이는 예상과 다른 동작일 수 있으므로 사용에 주의가 필요합니다.
 
-## 🏗️ Architecture
+## 🛠️ 지원되는 IDE
+
+| IDE         | 규칙 파일           | 자동 감지 |
+| ----------- | ------------------- | --------- |
+| Claude Code | `.claude/CLAUDE.md` | ✅        |
+| Cursor      | `.cursorrules`      | ✅        |
+| Windsurf    | `.windsurfrules`    | ✅        |
+| Gemini CLI  | `.gemini/rules.md`  | ✅        |
+| Kiro        | `.kiro/prompts.md`  | ✅        |
+
+## 🏗️ 아키텍처
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   MCP Client    │────▶│  Rulaby API      │────▶│    Database     │
-│ (Your Machine)  │     │  (Serverless)    │     │   (Encrypted)   │
+│   MCP 클라이언트    │────▶│  Rulaby API      │────▶│    데이터베이스     │
+│ (사용자 컴퓨터)  │     │  (서버리스)    │     │   (암호화됨)   │
 └─────────────────┘     └──────────────────┘     └─────────────────┘
 ```
 
-- **Local Processing**: File detection and encryption happen on your machine
-- **Secure API**: Only encrypted data is sent to the server
-- **No Credentials Stored**: Passwords are never stored on the server
+- **로컬 처리**: 파일 감지 및 암호화는 사용자 컴퓨터에서 발생합니다.
+- **보안 API**: 암호화된 데이터만 서버로 전송됩니다.
+- **자격 증명 미저장**: 비밀번호는 서버에 절대 저장되지 않습니다.
 
-## 🔒 Security
+## 🔒 보안
 
-- **End-to-End Encryption**: AES-256-GCM encryption with password-based key derivation
-- **Client-Side Encryption**: All encryption happens locally before transmission
-- **No Plain Text Storage**: Server never sees unencrypted rules
-- **Automatic Expiration**: Shares expire after the specified period
-- **Access Limiting**: Optional usage limits for shares
+- **종단 간 암호화**: 비밀번호 기반 키 유도를 사용하는 AES-256-GCM 암호화
+- **클라이언트 측 암호화**: 모든 암호화는 전송 전에 로컬에서 이루어집니다.
+- **평문 저장 없음**: 서버는 암호화되지 않은 규칙을 볼 수 없습니다.
+- **자동 만료**: 공유는 지정된 기간 후에 만료됩니다.
+- **접근 제한**: 공유에 대한 선택적 사용 횟수 제한
 
-## 🤝 Contributing
+## 🤝 기여
 
-Contributions are welcome!
+기여를 환영합니다!
 
-## 📄 License
+## 📄 라이선스
 
 MIT © HariFatherKR
 
-## 🆘 Support
+## 🆘 지원
 
-- **Issues**: [GitHub Issues](https://github.com/HariFatherKR/project-rulaby/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/HariFatherKR/project-rulaby/discussions)
-- **Email**: insanityskan@gmail.com
+- **이슈**: [GitHub Issues](https://github.com/HariFatherKR/project-rulaby/issues)
+- **토론**: [GitHub Discussions](https://github.com/HariFatherKR/project-rulaby/discussions)
+- **이메일**: insanityskan@gmail.com
 
-## 🔗 Links
+## 🔗 링크
 
-- [GitHub Repository](https://github.com/HariFatherKR/project-rulaby)
-- [NPM Package](https://www.npmjs.com/package/@hyto/rulaby-mcp-server)
-- [Documentation](https://docs.rulaby.dev)
+- [GitHub 저장소](https://github.com/HariFatherKR/project-rulaby)
+- [NPM 패키지](https://www.npmjs.com/package/@hyto/rulaby-mcp-server)
+- [문서](https://docs.rulaby.dev)
 
-## 📝 Changelog
+## 📝 변경 로그
 
 ### v1.1.2 (2025-07-24)
-- Enhanced template list display with better formatting and organization
-- Improved template name formatting (removed redundant suffixes)
-- Added usage statistics and popularity indicators (🔥 for 100+ uses, ⭐ for 500+ uses)
+
+- 더 나은 서식과 구성을 통해 템플릿 목록 표시 향상
+- 템플릿 이름 서식 개선 (중복 접미사 제거)
+- 사용 통계 및 인기 지표 추가 (🔥 100회 이상 사용, ⭐ 500회 이상 사용)
 
 ### v1.1.0 (2025-07-24)
-- Added hybrid template system with local cache and remote server
-- 16 essential templates included in npm package (44KB)
-- Remote template fetching with usage analytics
-- New `add_template_rule` tool with templateId support
-- Enhanced `list_templates` showing local + remote templates
+
+- 로컬 캐시와 원격 서버를 갖춘 하이브리드 템플릿 시스템 추가
+- npm 패키지에 16개의 필수 템플릿 포함 (44KB)
+- 사용 통계를 포함한 원격 템플릿 가져오기
+- templateId를 지원하는 새로운 `add_template_rule` 도구
+- 로컬 + 원격 템플릿을 보여주는 향상된 `list_templates`
 
 ### v1.0.1 (2025-07-23)
-- Removed debug endpoints after successful deployment
-- Fixed health check endpoint URL for Vercel deployment
-- Enhanced rule sharing system with 24-hour expiration
-- Improved security features
-- Removed Firebase dependencies and migrated to Serverless API
+
+- 성공적인 배포 후 디버그 엔드포인트 제거
+- Vercel 배포를 위한 상태 확인 엔드포인트 URL 수정
+- 24시간 만료 기능으로 규칙 공유 시스템 개선
+- 보안 기능 향상
+- Firebase 종속성 제거 및 서버리스 API로 마이그레이션
 
 ### v1.0.0 (2025-07-23)
-- Initial release with MCP server for secure rule sharing
-- Support for multiple AI IDEs (Claude Code, Cursor, Windsurf, etc.)
-- End-to-end encryption with password protection
-- Automatic format conversion between IDEs
-- Expiration control and usage limits
+
+- 안전한 규칙 공유를 위한 MCP 서버 초기 릴리스
+- 다중 AI IDE 지원 (Claude Code, Cursor, Windsurf 등)
+- 종단 간 암호화 및 비밀번호 보호
+- IDE 간 자동 포맷 변환
+- 만료 제어 및 사용 횟수 제한
 
 ---
 
-Made with ❤️ by the Rulaby team
+Rulaby 팀이 ❤️를 담아 만들었습니다.
