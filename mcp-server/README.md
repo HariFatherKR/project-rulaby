@@ -161,6 +161,13 @@ MIT © HariFatherKR
 
 ## 📝 변경 로그
 
+### v1.1.5 (2025-07-24)
+
+- `import_rules` 데이터 변환 문제 수정: 규칙 내용이 비어있던 문제 해결
+- 모든 IDE 변환 메서드(toCursor, toWindsurf, toGeminiCLI, toKiro)에 raw 컨텐츠 폴백 로직 추가
+- 카테고리별 규칙이 없을 때 원본 내용을 보존하도록 개선
+- claude-code에서 다른 IDE로 변환 시 내용 손실 방지
+
 ### v1.1.4 (2025-07-24)
 
 - `import_rules` 경로 문제 수정: 홈 디렉토리 대신 현재 작업 디렉토리에 규칙 파일 생성

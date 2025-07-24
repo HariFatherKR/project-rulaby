@@ -23,29 +23,40 @@ export class RuleConverter {
         }
     }
     static toCursor(urf) {
+        console.error('[RuleConverter] toCursor - URF rules:', JSON.stringify(urf.rules, null, 2));
         const sections = [
             '# Cursor Rules',
             `# Imported from ${urf.metadata.sourceIDE} on ${new Date().toLocaleDateString()}`,
             ''
         ];
-        if (urf.rules.general.length > 0) {
-            sections.push('## General Guidelines');
-            sections.push(...urf.rules.general.map(rule => `- ${rule}`));
-            sections.push('');
+        // If no categorized rules but we have raw content, use raw content
+        const hasCategories = urf.rules.general.length > 0 ||
+            urf.rules.codeStyle.length > 0 ||
+            urf.rules.behavior.length > 0 ||
+            urf.rules.projectSpecific.length > 0;
+        if (!hasCategories && urf.rules.raw) {
+            sections.push(urf.rules.raw);
         }
-        if (urf.rules.codeStyle.length > 0) {
-            sections.push('## Code Style');
-            sections.push(...urf.rules.codeStyle.map(rule => `- ${rule}`));
-            sections.push('');
-        }
-        if (urf.rules.behavior.length > 0) {
-            sections.push('## Assistant Behavior');
-            sections.push(...urf.rules.behavior.map(rule => `- ${rule}`));
-            sections.push('');
-        }
-        if (urf.rules.projectSpecific.length > 0) {
-            sections.push('## Project Specific');
-            sections.push(...urf.rules.projectSpecific.map(rule => `- ${rule}`));
+        else {
+            if (urf.rules.general.length > 0) {
+                sections.push('## General Guidelines');
+                sections.push(...urf.rules.general.map(rule => `- ${rule}`));
+                sections.push('');
+            }
+            if (urf.rules.codeStyle.length > 0) {
+                sections.push('## Code Style');
+                sections.push(...urf.rules.codeStyle.map(rule => `- ${rule}`));
+                sections.push('');
+            }
+            if (urf.rules.behavior.length > 0) {
+                sections.push('## Assistant Behavior');
+                sections.push(...urf.rules.behavior.map(rule => `- ${rule}`));
+                sections.push('');
+            }
+            if (urf.rules.projectSpecific.length > 0) {
+                sections.push('## Project Specific');
+                sections.push(...urf.rules.projectSpecific.map(rule => `- ${rule}`));
+            }
         }
         return {
             ide: 'cursor',
@@ -61,15 +72,26 @@ export class RuleConverter {
             `# Imported from ${urf.metadata.sourceIDE} on ${new Date().toLocaleDateString()}`,
             ''
         ];
-        sections.push('assistant_behavior:');
-        // Combine all rules for Windsurf format
-        const allRules = [
-            ...urf.rules.general,
-            ...urf.rules.behavior,
-            ...urf.rules.codeStyle,
-            ...urf.rules.projectSpecific
-        ];
-        sections.push(...allRules.map(rule => `  - ${rule}`));
+        // Check if we have categorized rules
+        const hasCategories = urf.rules.general.length > 0 ||
+            urf.rules.codeStyle.length > 0 ||
+            urf.rules.behavior.length > 0 ||
+            urf.rules.projectSpecific.length > 0;
+        if (!hasCategories && urf.rules.raw) {
+            // Use raw content if no categories
+            sections.push(urf.rules.raw);
+        }
+        else {
+            sections.push('assistant_behavior:');
+            // Combine all rules for Windsurf format
+            const allRules = [
+                ...urf.rules.general,
+                ...urf.rules.behavior,
+                ...urf.rules.codeStyle,
+                ...urf.rules.projectSpecific
+            ];
+            sections.push(...allRules.map(rule => `  - ${rule}`));
+        }
         return {
             ide: 'windsurf',
             files: [{
@@ -141,28 +163,39 @@ export class RuleConverter {
             `*Imported from ${urf.metadata.sourceIDE} on ${new Date().toLocaleDateString()}*`,
             ''
         ];
-        sections.push('## Response Format');
-        sections.push('Always follow these guidelines when responding:');
-        sections.push('');
-        if (urf.rules.behavior.length > 0) {
-            urf.rules.behavior.forEach(rule => {
-                sections.push(`* ${rule}`);
-            });
-            sections.push('');
+        // Check if we have categorized rules
+        const hasCategories = urf.rules.general.length > 0 ||
+            urf.rules.codeStyle.length > 0 ||
+            urf.rules.behavior.length > 0 ||
+            urf.rules.projectSpecific.length > 0;
+        if (!hasCategories && urf.rules.raw) {
+            // Use raw content if no categories
+            sections.push(urf.rules.raw);
         }
-        if (urf.rules.codeStyle.length > 0) {
-            sections.push('## Code Style');
-            sections.push('When writing code, adhere to:');
-            urf.rules.codeStyle.forEach(rule => {
-                sections.push(`* ${rule}`);
-            });
+        else {
+            sections.push('## Response Format');
+            sections.push('Always follow these guidelines when responding:');
             sections.push('');
-        }
-        if (urf.rules.general.length > 0 || urf.rules.projectSpecific.length > 0) {
-            sections.push('## Additional Context');
-            [...urf.rules.general, ...urf.rules.projectSpecific].forEach(rule => {
-                sections.push(`* ${rule}`);
-            });
+            if (urf.rules.behavior.length > 0) {
+                urf.rules.behavior.forEach(rule => {
+                    sections.push(`* ${rule}`);
+                });
+                sections.push('');
+            }
+            if (urf.rules.codeStyle.length > 0) {
+                sections.push('## Code Style');
+                sections.push('When writing code, adhere to:');
+                urf.rules.codeStyle.forEach(rule => {
+                    sections.push(`* ${rule}`);
+                });
+                sections.push('');
+            }
+            if (urf.rules.general.length > 0 || urf.rules.projectSpecific.length > 0) {
+                sections.push('## Additional Context');
+                [...urf.rules.general, ...urf.rules.projectSpecific].forEach(rule => {
+                    sections.push(`* ${rule}`);
+                });
+            }
         }
         return {
             ide: 'gemini-cli',
@@ -178,35 +211,46 @@ export class RuleConverter {
             `*Imported from ${urf.metadata.sourceIDE} on ${new Date().toLocaleDateString()}*`,
             ''
         ];
-        sections.push('## Default Behavior');
-        if (urf.rules.behavior.length > 0) {
-            urf.rules.behavior.forEach(rule => {
-                sections.push(`- ${rule}`);
-            });
+        // Check if we have categorized rules
+        const hasCategories = urf.rules.general.length > 0 ||
+            urf.rules.codeStyle.length > 0 ||
+            urf.rules.behavior.length > 0 ||
+            urf.rules.projectSpecific.length > 0;
+        if (!hasCategories && urf.rules.raw) {
+            // Use raw content if no categories
+            sections.push(urf.rules.raw);
         }
         else {
-            sections.push('- Act as a helpful assistant');
-        }
-        sections.push('');
-        if (urf.rules.codeStyle.length > 0) {
-            sections.push('## Coding Standards');
-            urf.rules.codeStyle.forEach(rule => {
-                sections.push(`- ${rule}`);
-            });
+            sections.push('## Default Behavior');
+            if (urf.rules.behavior.length > 0) {
+                urf.rules.behavior.forEach(rule => {
+                    sections.push(`- ${rule}`);
+                });
+            }
+            else {
+                sections.push('- Act as a helpful assistant');
+            }
             sections.push('');
-        }
-        if (urf.rules.projectSpecific.length > 0) {
-            sections.push('## Project Rules');
-            urf.rules.projectSpecific.forEach(rule => {
-                sections.push(`- ${rule}`);
-            });
-            sections.push('');
-        }
-        if (urf.rules.general.length > 0) {
-            sections.push('## General Guidelines');
-            urf.rules.general.forEach(rule => {
-                sections.push(`- ${rule}`);
-            });
+            if (urf.rules.codeStyle.length > 0) {
+                sections.push('## Coding Standards');
+                urf.rules.codeStyle.forEach(rule => {
+                    sections.push(`- ${rule}`);
+                });
+                sections.push('');
+            }
+            if (urf.rules.projectSpecific.length > 0) {
+                sections.push('## Project Rules');
+                urf.rules.projectSpecific.forEach(rule => {
+                    sections.push(`- ${rule}`);
+                });
+                sections.push('');
+            }
+            if (urf.rules.general.length > 0) {
+                sections.push('## General Guidelines');
+                urf.rules.general.forEach(rule => {
+                    sections.push(`- ${rule}`);
+                });
+            }
         }
         return {
             ide: 'kiro',
